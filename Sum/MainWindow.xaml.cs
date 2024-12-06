@@ -101,35 +101,28 @@ namespace PyramidalSumm
             {
                 Title = "Синхронная сумма",
                 Values = syncTimes,
-                LineSmoothness = 0.2, // Сглаживание
             });
 
             Series.Add(new LineSeries
             {
                 Title = "Параллельная сумма (Task)",
                 Values = taskTimes,
-                LineSmoothness = 0.2,
             });
 
             Series.Add(new LineSeries
             {
                 Title = "Параллельная сумма (Thread)",
                 Values = threadTimes,
-                LineSmoothness = 0.2,
             });
 
             chart.AxisX[0].Labels = AxisXLabels;
 
             // Заполнение TextBlock финальными значениями
-            output += "Финальные результаты:\n";
-            for (int i = 0; i < syncTimes.Count; i++)
-            {
-                output += $"Количество элементов: {startValue + i * step}.\n" +
-                          $"Синхронный алгоритм: {syncTimes[i]} мс\n" +
+                output += $"Количество элементов: {maxValue}.\n" +
+                          $"Синхронный алгоритм: {totalSyncTime} мс\n" +
                           $"{selectedThreadCount} потоков\n" +
-                          $"Параллельный алгоритм Thread - {threadTimes[i]} мс\n" +
-                          $"Параллельный алгоритм Task - {taskTimes[i]} мс\n\n";
-            }
+                          $"Параллельный алгоритм Thread - {totalThreadTime} мс\n" +
+                          $"Параллельный алгоритм Task - {totalTaskTime} мс\n\n";
 
             outputText.Text = output; // Заполнение TextBlock финальными результатами
         }
